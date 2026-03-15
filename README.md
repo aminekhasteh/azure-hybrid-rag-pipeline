@@ -1,4 +1,4 @@
-# Azure ETL & Retrieval - RAG Pipeline
+# Azure Hybrid RAG Pipeline
 
 An Azure-native retrieval-augmented search pipeline for a knowledge base containing product manuals, troubleshooting guides, and policy documents.
 
@@ -21,11 +21,11 @@ The default submission is configured for **prod**. Please update the .env file w
 
 1. **Create virtual environment**
    ```bash
-   python3.12 -m venv venv
+   python3 -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-2. **Install dependencies**
+2. **Install dependencies** (all versions are pinned for reproducibility)
    ```bash
    pip install -r requirements.txt
    ```
@@ -90,7 +90,7 @@ Replace `10` with your chunk number and `'policies/security.txt'` with your docu
 
 ## Prerequisites
 
-- Python 3.12+
+- Python 3.9+
 - Azure subscription (for prod): Blob Storage, Document Intelligence, OpenAI, AI Search
 - For dev: Azurite (optional), OpenAI API key (~$5)
 

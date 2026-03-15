@@ -1,4 +1,4 @@
-# Azure ETL & Retrieval - Documentation
+# Azure Hybrid RAG Pipeline - Documentation
 
 ## Architecture
 
@@ -66,13 +66,13 @@ To ensure a smooth developer experience while maintaining an enterprise-ready ar
 
 **Production Mode (prod)**: Fully connects to the Azure AI Foundry ecosystem, utilizing Azure Blob Storage, Azure AI Document Intelligence, Azure OpenAI, and Azure AI Search with Semantic Ranking.
 
-The default submission is configured for **prod**. Please update the .env file with your Azure credentials to execute the end-to-end cloud pipeline.
+The default submission is configured for **prod**. Please update the `.env` file with your Azure credentials to execute the end-to-end cloud pipeline.
 
 ## Setup
 
-1. Create virtual environment: `python3.12 -m venv venv`
+1. Create virtual environment: `python3 -m venv venv`
 2. Activate: `source venv/bin/activate` (macOS/Linux)
-3. Install: `pip install -r requirements.txt`
+3. Install (all versions are pinned for reproducibility): `pip install -r requirements.txt`
 4. Copy `.env.example` to `.env` and populate credentials
 
 ### Azure Resources (prod)

@@ -1,19 +1,37 @@
-langchain
-langchain-community
-langchain-openai
-langchain-text-splitters
-azure-search-documents
-azure-ai-documentintelligence
-azure-identity
-azure-storage-blob
-chromadb
-langchain-chroma
-pypdf
-tiktoken
-python-dotenv
+# Azure Hybrid RAG Pipeline
+# Python >= 3.9
+
+# --- LangChain ecosystem ---
+langchain==0.3.28
+langchain-community==0.3.31
+langchain-openai==0.3.35
+langchain-text-splitters==0.3.11
+langchain-chroma==0.2.6
+langgraph==0.6.11
+
+# --- Azure SDKs ---
+azure-search-documents==11.6.0
+azure-ai-documentintelligence==1.0.2
+azure-identity==1.25.3
+azure-storage-blob==12.28.0
+
+# --- Vector store & embeddings ---
+chromadb==1.5.5
+tiktoken==0.12.0
+
+# --- Document parsing ---
+pypdf==6.9.0
+
+# --- LLM providers ---
+anthropic==0.84.0
+
+# --- Data & utilities ---
+sqlalchemy==2.0.48
+python-dotenv==1.2.1
+
+# --- Notebook & dev ---
 jupyter
 ipykernel
-deepeval
-anthropic
-langgraph
-sqlalchemy
+
+# --- Evaluation ---
+deepeval==3.8.9
