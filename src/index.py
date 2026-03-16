@@ -313,14 +313,20 @@ def add_document_record(
             )
         else:
             conn.execute(
-                text("DELETE FROM document_catalog WHERE source = :source"),
-                {"source": source},
-            )
-            conn.execute(
                 text(
                     """
-                INSERT INTO document_catalog (source, filename, content_hash, ingested_at, chunk_count, chunk_ids, access_count)
-                VALUES (:source, :filename, :content_hash, :ingested_at, :chunk_count, :chunk_ids, 0)
+                MERGE document_catalog AS target
+                USING (SELECT :source AS source) AS src
+                ON target.source = src.source
+                WHEN MATCHED THEN UPDATE SET
+                    filename = :filename,
+                    content_hash = :content_hash,
+                    ingested_at = :ingested_at,
+                    chunk_count = :chunk_count,
+                    chunk_ids = :chunk_ids
+                WHEN NOT MATCHED THEN INSERT
+                    (source, filename, content_hash, ingested_at, chunk_count, chunk_ids, access_count)
+                    VALUES (:source, :filename, :content_hash, :ingested_at, :chunk_count, :chunk_ids, 0);
                 """
                 ),
                 params,

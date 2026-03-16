@@ -163,40 +163,19 @@ def load_from_local(path: str) -> list[Document]:
     if not root.exists():
         return documents
 
-    # PDFs and TXT from manuals/
-    manuals_dir = root / "manuals"
-    if manuals_dir.exists():
-        for f in manuals_dir.rglob("*.pdf"):
-            if f.is_file():
+    for subdir in ("manuals", "troubleshooting", "policies"):
+        folder = root / subdir
+        if not folder.exists():
+            continue
+        for f in folder.rglob("*"):
+            if not f.is_file():
+                continue
+            ext = f.suffix.lower()
+            if ext == ".pdf":
                 documents.extend(
                     _load_file_with_hash(f, root, PyPDFLoader)
                 )
-        for f in manuals_dir.rglob("*.txt"):
-            if f.is_file():
-                documents.extend(
-                    _load_file_with_hash(
-                        f, root, TextLoader,
-                        {"encoding": "utf-8"},
-                    )
-                )
-
-    # Markdown from troubleshooting/
-    troubleshooting_dir = root / "troubleshooting"
-    if troubleshooting_dir.exists():
-        for f in troubleshooting_dir.rglob("*.md"):
-            if f.is_file():
-                documents.extend(
-                    _load_file_with_hash(
-                        f, root, TextLoader,
-                        {"encoding": "utf-8"},
-                    )
-                )
-
-    # TXT from policies/
-    policies_dir = root / "policies"
-    if policies_dir.exists():
-        for f in policies_dir.rglob("*.txt"):
-            if f.is_file():
+            elif ext in (".md", ".txt"):
                 documents.extend(
                     _load_file_with_hash(
                         f, root, TextLoader,

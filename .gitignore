@@ -29,6 +29,9 @@ data/chroma_db/
 # Jupyter
 .ipynb_checkpoints/
 
+# Logs
+azurite-debug.log
+
 # IDE & OS
 .DS_Store
 .cursor/

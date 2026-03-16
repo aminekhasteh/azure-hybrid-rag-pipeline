@@ -219,6 +219,7 @@ def _search_prod(
                 "content": content,
                 "metadata": metadata,
                 "caption": caption,
+                "score": score,
             }
         )
 
@@ -613,15 +614,6 @@ def _create_rephrase_node(
     return rephrase
 
 
-def _create_route_after_rephrase(max_retries: int):
-    def route(state: RAGState) -> Literal["retrieve", "feedback_node"]:
-        if state.get("retry_count", 0) <= max_retries:
-            return "retrieve"
-        return "feedback_node"
-
-    return route
-
-
 def _create_feedback_node(default_eval_threshold: float):
     def feedback(state: RAGState) -> dict:
         path = state.get("path_taken", [])
@@ -698,11 +690,7 @@ def build_rag_graph(
         },
     )
     graph.add_edge("success", END)
-    graph.add_conditional_edges(
-        "rephrase_query",
-        _create_route_after_rephrase(max_retries),
-        {"retrieve": "retrieve", "feedback_node": "feedback_node"},
-    )
+    graph.add_edge("rephrase_query", "retrieve")
     graph.add_edge("feedback_node", END)
 
     return graph.compile()
