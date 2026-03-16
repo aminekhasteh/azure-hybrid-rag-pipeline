@@ -270,7 +270,7 @@ SELECT
     chunk_count,
     json_extract(chunk_ids, '$[' || (10 - 1) || ']') AS chunk_id
 FROM document_catalog
-WHERE source = 'policies/security.txt';
+WHERE source = 'policies/RAG Security.txt';
 ```
 
 Replace `10` with your chunk number and `'policies/security.txt'` with your document source. The `chunk_ids` column is a JSON array; `json_extract(..., '$[N]')` uses 0-based indexing, so use `(chunk_number - 1)`.
